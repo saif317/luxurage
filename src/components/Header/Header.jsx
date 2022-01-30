@@ -1,28 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SubHeading } from '../../components';
-import { logo } from '../../constants/images';
+import { logo, banner } from '../../constants/images';
 
 import './Header.css';
 
+const getScreenWidth = () => {
+  const { innerWidth: width } = window;
+  return width;
+};
+
+const useScreenWidth = () => {
+  const [screenWidth, setScreenWidth] = useState(getScreenWidth());
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(getScreenWidth());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return screenWidth;
+};
+
 const Header = () => {
+  const width = useScreenWidth();
+
   return (
-    <div className='app__header app__wrapper section__padding' id='info'>
-      <div className='app__wrapper_info'>
+    <div className='app__header'>
+      <div className='app__header--info'>
         <SubHeading title='subheading title' />
-        <h1 className='app__header-h1'>app header h1 app header h1</h1>
-        <p className='app__header-p p__opensans' style={{ margin: '2rem 0' }}>
+        <div className='app__header--h1'>
+          <h1>app header h1 app header h1</h1>
+        </div>
+        <p className='app__header--p'>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
         </p>
-        <button className='custom__button'>custom button</button>
+        <button className='app__header--btn'>custom button</button>
       </div>
-      <div className='app__header-img'>
-        <img src={logo} alt='header' />
+      <div className='app__header--img'>
+        {width <= 960 ? (
+          <img src={banner} alt='header' />
+        ) : (
+          <img src={logo} alt='header' />
+        )}
       </div>
     </div>
   );

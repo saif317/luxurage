@@ -1,3 +1,30 @@
-.app__subheading {
-  margin-bottom: 1rem;
+.app__subheading-p {
+  color: var(--color-snow);
+  font-family: var(--font-base);
+  font-size: 4em;
+  line-height: 1.5em;
+}
+
+.app__subheading-separator {
+  height: 1px;
+  background-color: var(--color-tart);
+  width: 25%;
+}
+
+@media screen and (max-width: 1440px) {
+  .app__subheading-p {
+    font-size: 2em;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .app__subheading-p {
+    font-size: 1.35em;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .app__subheading-separator {
+    width: 50%;
+  }
 }
